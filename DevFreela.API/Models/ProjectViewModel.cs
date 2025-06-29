@@ -1,7 +1,36 @@
-﻿namespace DevFreela.API.Models
+﻿using DevFreela.API.Entities;
+
+namespace DevFreela.API.Models
 {
     public class ProjectViewModel
     {
-        public int Id { get; set; }
+        public ProjectViewModel(int id, string title, string description, int idClient, int idFreelancer, string clientName, string nameFreelancer, decimal totalCost, List<ProjectComment> comments)
+        {
+            Id = id;
+            Title = title;
+            Description = description;
+            IdClient = idClient;
+            IdFreelancer = idFreelancer;
+            ClientName = clientName;
+            NameFreelancer = nameFreelancer;
+            TotalCost = totalCost;
+            Comments = comments.Select(c => c.Content).ToList();
+        }
+
+        public int Id { get; private set; }
+        public string Title { get; private set; }
+        public string Description { get; private set; }
+        public string FullName { get; private set; }
+        public int IdClient { get; private set; }
+        public int IdFreelancer { get; private set; }
+        public string ClientName { get; private set; }
+        public string NameFreelancer { get; private set; }
+        public decimal TotalCost { get; private set; }
+        public List<string> Comments { get; private set; }
+
+        public static ProjectViewModel FromEntity(Project entity)
+        => new ProjectViewModel(entity.Id, entity.Title, entity.Description, entity.IdClient, entity.IdFreelancer, entity.Client.FullName, entity.Freelancer.FullName, entity.TotalCost, entity.Comments);
+
+        
     }
 }
