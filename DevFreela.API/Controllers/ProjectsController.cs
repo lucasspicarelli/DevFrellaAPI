@@ -1,6 +1,8 @@
 ﻿using DevFreela.API.Models;
+using DevFreela.API.Persistence;
 using DevFreela.API.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace DevFreela.API.Controllers
@@ -9,25 +11,41 @@ namespace DevFreela.API.Controllers
     [Route("api/projects")]
     public class ProjectsController : ControllerBase
     {
+        private readonly DevFreelaDbContext _context;
         private readonly FreelanceTotalCostConfig _config;
         private readonly IConfigService _configService;
-        public ProjectsController()
+        public ProjectsController(DevFreelaDbContext context)
         {
-
+            _context = context;
         }
 
         // GET api/projects?search=crm
         [HttpGet]
         public IActionResult Get(string search = "")
         {
-            return Ok();
+            var projects = _context.Projects
+                .Include(p => p.Client)
+                .Include(p => p.Freelancer)
+                .Where(p => p.IsDeleted).ToList();
+
+            var model = projects.Select(ProjectViewModel.FromEntity).ToList();
+
+            return Ok(projects);
         }
 
         // GET api/projects/1234
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            return Ok();
+            var project = _context.Projects
+                .Include(p => p.Client)
+                .Include(p => p.Freelancer)
+                .Include(p => p.Comments)
+                .SingleOrDefault(p => p.Id == id);
+
+            var model = ProjectViewModel.FromEntity(project);
+
+            return Ok(model);
         }
 
         // POST api/projects
