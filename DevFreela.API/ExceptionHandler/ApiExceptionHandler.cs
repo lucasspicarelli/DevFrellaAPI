@@ -13,8 +13,7 @@ namespace DevFreela.API.ExceptionHandler
                 Title = "Server Error"
             };
 
-            // Fazer o que preferir, como logar o erro
-
+            //Fazer o que preferir, como logar o erro
             httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
 
             await httpContext.Response.WriteAsJsonAsync(details, cancellationToken);

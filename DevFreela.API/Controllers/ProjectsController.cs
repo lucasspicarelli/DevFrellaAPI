@@ -14,6 +14,7 @@ namespace DevFreela.API.Controllers
         private readonly DevFreelaDbContext _context;
         private readonly FreelanceTotalCostConfig _config;
         private readonly IConfigService _configService;
+
         public ProjectsController(DevFreelaDbContext context)
         {
             _context = context;
