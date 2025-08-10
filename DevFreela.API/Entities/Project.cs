@@ -66,6 +66,5 @@ namespace DevFreela.API.Entities
             Description = description;
             TotalCost = totalCost;
         }
-
     }
 }

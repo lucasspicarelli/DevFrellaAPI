@@ -1,13 +1,13 @@
 ﻿namespace DevFreela.API.Entities
 {
-    public class UserSkill
+    public class UserSkill : BaseEntity
     {
         public UserSkill(int idUser, int idSkill) : base()
         {
-            Id = idUser;
+            IdUser = idUser;
             IdSkill = idSkill;
         }
-        public int Id { get; private set; }
+        public int IdUser { get; private set; }
         public User User { get; set; }
         public int IdSkill { get; private set; }
         public Skill Skill { get; private set; }

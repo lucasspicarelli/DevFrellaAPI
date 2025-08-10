@@ -37,7 +37,6 @@ namespace DevFreela.API.Persistence
                 .Entity<ProjectComment>(e =>
                 {
                     e.HasKey(p => p.Id);
-
                     e.HasOne(p => p.Project)
                         .WithMany(p => p.Comments)
                         .HasForeignKey(p => p.IdProject)
@@ -47,7 +46,6 @@ namespace DevFreela.API.Persistence
                 .Entity<User>(e =>
                 {
                     e.HasKey(u => u.Id);
-
                     e.HasMany(u => u.Skills)
                         .WithOne(us => us.User)
                         .HasForeignKey(us => us.Id)
@@ -57,7 +55,6 @@ namespace DevFreela.API.Persistence
                 .Entity<Project>(e =>
                 {
                     e.HasKey(p => p.Id);
-
                     e.HasOne(p => p.Freelancer)
                         .WithMany(f => f.FreelanceProjects)
                         .HasForeignKey(p => p.IdFreelancer)
@@ -71,5 +68,5 @@ namespace DevFreela.API.Persistence
 
             base.OnModelCreating(builder);
         }
-    }    
+    }
 }
