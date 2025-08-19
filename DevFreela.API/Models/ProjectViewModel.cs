@@ -28,7 +28,7 @@ namespace DevFreela.API.Models
         public List<string> Comments { get; private set; }
 
         // Factory method to create a ProjectViewModel from a Project entity and its comments
-        public static ProjectViewModel FromEntity(Project entity, List<ProjectComment> comments)
+        public static ProjectViewModel FromEntity(Project entity)
             => new ProjectViewModel(
                 entity.Id,
                 entity.IdClient,
@@ -38,6 +38,6 @@ namespace DevFreela.API.Models
                 entity.Title,
                 entity.Description,
                 entity.TotalCost,
-                comments);
+                entity.Comments);
     }
 }

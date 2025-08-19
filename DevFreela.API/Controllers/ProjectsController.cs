@@ -1,4 +1,5 @@
-﻿using DevFreela.API.Models;
+﻿using DevFreela.API.Entities;
+using DevFreela.API.Models;
 using DevFreela.API.Persistence;
 using DevFreela.API.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -29,7 +30,7 @@ namespace DevFreela.API.Controllers
                 .Include(p => p.Freelancer)
                 .Where(p => p.IsDeleted).ToList();
 
-            var model = projects.Select(ProjectViewModel.FromEntity).ToList();
+            var model = projects.Select(ProjectItemViewModel.FromEntity).ToList();
 
             return Ok(projects);
         }
