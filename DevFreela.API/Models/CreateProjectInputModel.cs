@@ -11,12 +11,6 @@ namespace DevFreela.API.Models
         public decimal TotalCost { get; set; }
 
         public Project ToEntity() 
-        => new
-            (   Title, 
-                Description, 
-                IdClient,
-                IdFreelancer,
-                TotalCost
-            );
+        => new(Title,Description,IdClient,IdFreelancer,TotalCost);
     }
 }
