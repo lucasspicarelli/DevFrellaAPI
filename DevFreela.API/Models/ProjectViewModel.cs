@@ -27,17 +27,19 @@ namespace DevFreela.API.Models
         public decimal TotalCost { get; private set; }
         public List<string> Comments { get; private set; }
 
-        // Factory method to create a ProjectViewModel from a Project entity and its comments
+
         public static ProjectViewModel FromEntity(Project entity)
-            => new ProjectViewModel(
-                entity.Id,
-                entity.IdClient,
-                entity.IdFreelancer,
-                entity.Client.FullName,
-                entity.Freelancer.FullName,
-                entity.Title,
-                entity.Description,
-                entity.TotalCost,
-                entity.Comments);
+        => new(
+            entity.Id,
+            entity.IdClient,
+            entity.IdFreelancer,
+            entity.Client.FullName,
+            entity.Freelancer.FullName,
+            entity.Title,
+            entity.Description,
+            entity.TotalCost,
+            entity.Comments
+        );
+
     }
 }
