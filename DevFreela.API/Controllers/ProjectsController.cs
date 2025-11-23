@@ -1,6 +1,8 @@
-﻿using DevFreela.Application.Models;
+﻿using DevFreela.Application.Commands.CreateProject;
+using DevFreela.Application.Models;
 using DevFreela.Application.Services;
 using DevFreela.Infrastructere.Persistence;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevFreela.API.Controllers
@@ -9,13 +11,13 @@ namespace DevFreela.API.Controllers
     [Route("api/projects")]
     public class ProjectsController : ControllerBase
     {
-        private readonly DevFreelaDbContext _context;
         private readonly IProjectService _service;
+        private readonly IMediator _mediator;
 
-        public ProjectsController(DevFreelaDbContext context, IProjectService service)
+        public ProjectsController(DevFreelaDbContext context, IProjectService service, IMediator mediator)
         {
-            _context = context;
             _service = service;
+            _mediator = mediator;
         }
 
         // GET api/projects?search=crm
@@ -42,11 +44,13 @@ namespace DevFreela.API.Controllers
 
         // POST api/projects
         [HttpPost]
-        public IActionResult Post(CreateProjectInputModel model)
+        public async Task<IActionResult> Post(CreateProjectCommand model)
         {
-            var result = _service.Insert(model);
+            //var result = _service.Insert(model);
 
-            return CreatedAtAction(nameof(GetById), new { id = result.Data }, model);
+            var id = await _mediator.Send(model);
+
+            return CreatedAtAction(nameof(GetById), new { id = id}, model);
         }
 
         // PUT api/projects/1234

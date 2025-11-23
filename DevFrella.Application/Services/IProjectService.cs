@@ -1,6 +1,4 @@
 ﻿using DevFreela.Application.Models;
-using System;
-using System.Drawing;
 
 namespace DevFreela.Application.Services
 {    
